@@ -1,5 +1,3 @@
-#!/usr/bin/env python3
-
 from os import environ
 import requests, json, time
 from eth_abi_ext import decode_packed
@@ -29,7 +27,7 @@ def hex2str(h):
 def post(endpoint, payload):
     requests.post(f"{rollup_server}/{endpoint}", json=payload)
 
-def ensure_balance(user, erc20):
+def balance_check(user, erc20):
     if user not in balances: balances[user] = {}
     if erc20 not in balances[user]: balances[user][erc20] = 0
 
@@ -58,7 +56,7 @@ def handle_erc20_deposit(data):
     for rec in deposit_requests:
         if not rec["matched"] and rec["depositor"] == depositor and rec["erc20"] == erc20 and rec["amount"] == amount:
             user = rec["user"]
-            ensure_balance(user, erc20)
+            balance_check(user, erc20)
             balances[user][erc20] += amount
             rec["matched"] = True
             return "accept"
