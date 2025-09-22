@@ -1,4 +1,4 @@
-# sft
+# SFT
 
 ## Programa de fidelidade baseado em cashback tokenizado na stablecoin SFT.
 
